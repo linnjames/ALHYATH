@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="hotel_registration_card_pdf">
+        <t t-call="web.html_container">
+            <t t-call="web.basic_layout">
+                <t t-foreach="docs" t-as="o">
+                    <style type="text/css">
+                        #table_value_border{
+                        vertical-align: middle;
+                        border-right: 2px solid black;
+                        border-left: 2px solid black;
+                        border-top: 2px solid black;
+                        border-bottom: 2px solid black;
+                        padding: 10px;
+                        font-size: 15px;
+                        height: 100%;
+                        }
+                        #company_name {
+                        font-size: 30px;
+                        font-weight: bold;
+                        text-align: center;
+                        margin-top: 10px;
+                        }
+                    </style>
+                    <div class="page">
+                        <div style="text-align: center; margin-bottom: 20px;">
+                            <div id="company_logo" style="margin-top: 20px;">
+                                <img t-att-src="'data:image/png;base64,' + (o.company_id.logo or b'').decode('utf-8')"
+                                     style="max-height: 100px;" alt="Company Logo"/>
+                            </div>
+                            <div id="company_name">
+                                <t t-esc="o.company_id.name"/>
+                            </div>
+                        </div>
+                        <table style="width: 100%" class="table table-borderless">
+                            <tr>
+                                <td id="table_value_border" colspan="9">
+                                    <h2 style="font-weight:bold;margin:0;padding:0;text-align: center;">Registration Card</h2>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td id="table_value_border">
+                                    <strong>Room</strong>
+                                </td>
+                                <td id="table_value_border">
+                                    <strong>Arrival Date</strong>
+                                </td>
+                                <td id="table_value_border">
+                                    <strong>Departure Date</strong>
+                                </td>
+                                <td id="table_value_border">
+                                    <strong>Room Type</strong>
+                                </td>
+                                <td id="table_value_border">
+                                    <strong>Guests</strong>
+                                </td>
+                                <td id="table_value_border">
+                                    <strong>Rate</strong>
+                                </td>
+                                <td id="table_value_border">
+                                    <strong>Plan</strong>
+                                </td>
+                                <td id="table_value_border">
+                                    <strong>Reg No</strong>
+                                </td>
+                                <td id="table_value_border">
+                                    <strong>User</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td id="table_value_border">
+                                    <t t-esc="o.reservation_line.room_number.name"/>
+                                </td>
+                                <td id="table_value_border">
+                                    <t t-esc="o.reservation_line.checkin.strftime('%d/%m/%Y')"/>
+                                </td>
+                                <td id="table_value_border">
+                                    <t t-esc="o.reservation_line.checkout.strftime('%d/%m/%Y')"/>
+                                </td>
+                                <td id="table_value_border">
+                                    <t t-esc="o.reservation_line.categ_id.name"/>
+                                </td>
+                                <td id="table_value_border">
+                                    <t t-esc="o.adults"/>
+                                </td>
+                                <td id="table_value_border">
+                                    <t t-esc="o.reservation_line.room_number.lst_price"/>
+                                </td>
+                                <td id="table_value_border">
+                                    100272615400003
+                                </td>
+                                <td id="table_value_border">
+                                    <t t-esc="o.name"/>
+                                </td>
+                                <td id="table_value_border">
+                                    <t t-esc="o.env.user.name"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 20%;vertical-align: middle;border-right: 2px solid black;border-left: 2px solid black;border-bottom: 2px solid black;border-top: 2px solid black;padding: 20px;font-size: 15px;height: 100%;" colspan="2">
+                                    <strong>Name</strong>
+                                </td>
+                                <td style="width: 80%;vertical-align: middle;border-right: 2px solid black;border-bottom: 2px solid black;border-top: 2px solid black;padding: 20px;font-size: 15px;height: 100%;" colspan="7">
+                                    <t t-esc="o.partner_id.name"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 20%; vertical-align: middle; padding: 5px; font-size: 14px;border-left: 2px solid black; border-right: 2px solid black;border-top: 2px solid black;border-bottom: 2px solid black;" colspan="2">
+                                    <strong>Address/PO Box No</strong>
+                                    <br/>
+                                    <strong>Contact No</strong>
+                                </td>
+                                <td style="width: 40%; vertical-align: middle; padding: 5px; font-size: 14px; border-right: 2px solid black;border-top: 2px solid black;border-bottom: 2px solid black;" colspan="3">
+                                    <t t-esc="o.partner_id.name"/>
+                                    <br/>
+                                    <t t-esc="o.partner_id.phone"/>
+                                </td>
+                                <td style="width: 20%;text-align: center; vertical-align: middle; padding: 5px; font-size: 14px; border-right: 2px solid black;border-top: 2px solid black;border-bottom: 2px solid black;" colspan="2">
+                                    <strong>City</strong>
+                                    <br/>
+                                    <strong>Zip</strong>
+                                    <br/>
+                                    <strong>Country</strong>
+                                    <br/>
+                                    <strong>Email</strong>
+                                    <br/>
+                                </td>
+                                <td style="width: 40%; vertical-align: middle; padding: 5px; font-size: 14px;border-top: 2px solid black;border-bottom: 2px solid black;border-right: 2px solid black;" colspan="2">
+                                    <t t-esc="o.partner_id.city"/>
+                                    <br/>
+                                    <t t-esc="o.partner_id.zip"/>
+                                    <br/>
+                                    <t t-esc="o.partner_id.country_id.name"/>
+                                    <br/>
+                                    <t t-esc="o.partner_id.email"/>
+                                    <br/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 20%;vertical-align: middle;border-right: 2px solid black;border-left: 2px solid black;border-top: 2px solid black;border-bottom: 2px solid black;padding: 20px;font-size: 15px;height: 100%;" colspan="2">
+                                    <strong>Travel Agent/Company</strong>
+                                </td>
+                                <td style="width: 80%;vertical-align: middle;border-left: 2px solid black;border-right: 2px solid black;border-top: 2px solid black;border-bottom: 2px solid black;padding: 20px;font-size: 15px;height: 100%;" colspan="7">
+                                    <t t-esc="o.source"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 10%; vertical-align: middle; padding: 20px; font-size: 14px; border-right: 2px solid black;border-left: 2px solid black;border-top: 2px solid black;border-bottom: 2px solid black;height: 100%;" colspan="2">
+                                    <strong>Passport/ID</strong>
+                                    <br/>
+                                    <strong>Nationality</strong>
+                                </td>
+                                <td style="width: 40%; vertical-align: middle; padding: 20px; font-size: 14px; border-right: 2px solid black;border-top: 2px solid black;border-bottom: 2px solid black;height: 100%;" colspan="3">
+                                    <t t-esc="o.partner_id.name"/>
+                                    <br/>
+                                    <t t-esc="o.partner_id.country_id.name"/>
+                                </td>
+
+                                <td style="width: 20%;text-align: center; vertical-align: middle; padding: 20px; font-size: 14px; border-right: 2px solid black;border-top: 2px solid black;border-bottom: 2px solid black;height: 100%;" colspan="2">
+                                    <strong>Issue Date</strong>
+                                    <br/>
+                                    <strong>Place of Issue</strong>
+                                    <br/>
+                                    <strong>Date of Expiry</strong>
+                                    <br/>
+                                </td>
+                                <td style="width: 30%; vertical-align: middle; padding: 20px; font-size: 14px;border-top: 2px solid black;border-right: 2px solid black;border-bottom: 2px solid black;height: 100%;" colspan="2">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 20%;vertical-align: middle;border-right: 2px solid black;border-left: 2px solid black;border-top: 2px solid black;border-bottom: 2px solid black;padding: 20px;font-size: 15px;height: 100%;" colspan="2">
+                                    <strong>Billing Instruction</strong>
+                                </td>
+                                <td style="width: 80%;vertical-align: middle;border-left: 2px solid black;border-top: 2px solid black;border-bottom: 2px solid black;border-right: 2px solid black;padding: 20px;font-size: 15px;height: 100%;" colspan="7">
+                                    <strong>Entire Bill to Company</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 20%;vertical-align: middle;border-right: 2px solid black;border-left: 2px solid black;border-bottom: 2px solid black;border-top: 2px solid black;padding: 20px;font-size: 15px;height: 100%;" colspan="3">
+                                    <strong>Payment</strong>
+                                    <br/>
+                                    <strong>Cheques are not Accepted</strong>
+                                </td>
+                                <td style="width: 60%;vertical-align: middle;border-left: 2px solid black;border-bottom: 2px solid black;border-top: 2px solid black;padding: 20px;font-size: 15px;height: 100%;" colspan="4">
+                                    <strong></strong>
+                                </td>
+                                <td style="width: 20%;vertical-align: middle;border-left: 2px solid black;border-right: 2px solid black;border-bottom: 2px solid black;border-top: 2px solid black;padding: 20px;font-size: 15px;height: 100%;" colspan="2">
+                                    <strong>Acc Date</strong>
+                                    <br/>
+                                    <t t-esc="o.date_order"/>
+                                    <br/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 20%;vertical-align: middle;border-right: 2px solid black;border-left: 2px solid black;border-bottom: 2px solid black;border-top: 2px solid black;padding: 30px;font-size: 15px;height: 100%;" colspan="2">
+                                    <strong>Card Details</strong>
+                                    <br/>
+                                </td>
+                                <td style="width: 30%;vertical-align: middle;border-left: 2px solid black;border-bottom: 2px solid black;border-top: 2px solid black;padding: 30px;font-size: 15px;height: 100%;" colspan="3">
+                                    <strong>Card Type</strong>
+                                </td>
+                                <td style="width: 30%;vertical-align: middle;border-left: 2px solid black;border-bottom: 2px solid black;border-top: 2px solid black;padding: 30px;font-size: 15px;height: 100%;" colspan="2">
+                                    <strong>C.C NO</strong>
+                                    <br/>
+                                </td>
+                                <td style="width: 20%;vertical-align: middle;border-left: 2px solid black;border-right: 2px solid black;border-bottom: 2px solid black;border-top: 2px solid black;padding: 30px;font-size: 15px;height: 100%;" colspan="2">
+                                    <strong>Exp Date</strong>
+                                    <br/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 50%;vertical-align: middle;border-right: 2px solid black;border-left: 2px solid black;border-bottom: 2px solid black;padding: 10px;font-size: 15px;height: 100%;" colspan="5">
+                                    <p>
+                                        I agree that my liability for my bill is not waived and agree to be held
+                                        personally liable in an event that the indicated person, company
+                                        or association fails to pay for any part of the full amount of these
+                                        charges. Bill is payable upon presentation.
+                                    </p>
+                                </td>
+                                <td style="width: 50%;vertical-align: middle;border-left: 2px solid black;border-right: 2px solid black;border-bottom: 2px solid black;padding: 10px;font-size: 15px;height: 100%;" colspan="4">
+                                    <strong>Signature</strong>
+                                    <br/>
+                                    <br/>
+                                    <p>
+                                        The hotel will not be responsible for any money
+                                        or valuables left in the room.
+                                        Safe deposit boxes are available in the room
+                                        without charge.
+                                    </p>
+                                    <t t-esc="datetime.date.today()"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

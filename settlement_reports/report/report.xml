@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="revenue_report_excel_xlsx" model="ir.actions.report">
+        <field name="name">Revenue wise settlement</field>
+        <field name="model">report.settlement_reports.revenue_report_xlsx</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">settlement_reports.revenue_report_xlsx</field>
+    </record>
+
+    <record id="day_report_excel_xlsx" model="ir.actions.report">
+        <field name="name">Day wise settlement</field>
+        <field name="model">report.settlement_reports.day_report_excel_xlsx</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">settlement_reports.day_report_excel_xlsx</field>
+    </record>
+</odoo>

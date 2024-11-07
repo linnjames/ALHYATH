@@ -1,0 +1,13 @@
+<odoo>
+    <data>
+        <report
+                id="action_invoice_pdf"
+                model="account.move"
+                string="Tax Invoice"
+                report_type="qweb-pdf"
+                name="tax_invoice_report.invoice_pdf_template"
+                file="tax_invoice_report.invoice_pdf_template"
+        />
+    </data>
+</odoo>
+

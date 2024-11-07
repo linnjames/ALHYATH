@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.actions.server" id="action_print_reservation_pdf">
+        <field name="name">Reservation Confirmation</field>
+        <field name="model_id" ref="reservation_mail.model_hotel_reservation"/>
+        <field name="binding_model_id" ref="reservation_mail.model_hotel_reservation"/>
+        <field name="state">code</field>
+        <field name="code">
+            if records.state in ('confirm', 'done'):
+            action = records.action_print_reservation_pdf()
+        </field>
+    </record>
+
+</odoo>

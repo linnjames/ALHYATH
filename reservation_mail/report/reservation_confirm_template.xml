@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="hotel_reservation_confirmation_report_pdf">
+        <t t-call="web.html_container">
+            <t t-call="web.basic_layout">
+                <t t-foreach="docs" t-as="o">
+                    <div style="text-align: center; margin-bottom: 20px;">
+                        <div id="company_logo" style="margin-top: 20px;">
+                            <img t-att-src="'data:image/png;base64,' + (o.company_id.logo or b'').decode('utf-8')"
+                                 style="max-height: 100px;" alt="Company Logo"/>
+                        </div>
+                        <div id="company_name" style="font-size: 30px; font-weight: bold; margin-top: 20px;">
+                            <t t-esc="o.company_id.name"/>
+                        </div>
+                    </div>
+                    <div class="page" style="padding: 5mm; border: 2px solid black;">
+                        <!-- Hotel Information -->
+                        <div class="hotel-info" style="margin-top: 10px;">
+                            <div>
+                                <h2 style="font-weight:bold;margin-top: 0px;;padding:0;text-align: center;">Reservation Confirmation</h2>
+                            </div>
+                            <div>
+                                <strong>Hotel Name:</strong>
+                                <t t-esc="o.shop_id.name"/>
+                            </div>
+                            <div>
+                                <strong>Address:</strong>
+                                <t t-esc="o.company_id.street"/>
+                            </div>
+                            <div>
+                                <strong>Telephone:</strong>
+                                <t t-esc="o.company_id.phone"/>
+                            </div>
+                            <div>
+                                <strong>Email:</strong>
+                                <t t-esc="o.company_id.email"/>
+                            </div>
+                            <div>
+                                <strong>VAT:</strong>
+                                <t t-esc="o.company_id.vat"/>
+                            </div>
+                            <div>
+                                <strong>Website:</strong>
+                                <t t-esc="o.company_id.website"/>
+                            </div>
+                            <div style="margin-top: 10px; background-color: #d3d3d3; padding: 10px; border-radius: 5px;">
+                                <strong>Reservation Confirmation No:</strong>
+                                <span style="color: black; font-weight: bold;">
+                                    <t t-esc="o.name"/>
+                                </span>
+                            </div>
+                            <div>
+                                <strong>Date:</strong>
+                                <t t-esc="o.date_order and o.date_order.strftime('%Y-%m-%d')"/>
+                            </div>
+
+                        </div>
+
+                        <div style="margin-top: 20px;">
+                            <p>
+                                <b>Dear
+                                    <t t-esc="o.partner_id.name"/>
+                                </b>
+                            </p>
+                            <p>Thank you for choosing Al Hayat Hotel; it's our pleasure to confirm the following
+                                Reservation. Kindly review the Reservation details for accuracy.
+                            </p>
+                            <ul>
+                                <li>
+                                    <strong>Guest Name:</strong>
+                                    <t t-esc="o.partner_id.name"/>
+                                </li>
+                                <li>
+                                    <strong>Vessel Name:</strong>
+<!--                                    <t t-esc=""/>-->
+                                </li>
+                                <li>
+                                    <strong>Arrival Date:</strong>
+                                    <t t-esc="o.reservation_line.checkin.strftime('%d/%m/%Y')"/>
+                                </li>
+                                <li>
+                                    <strong>Departure Date:</strong>
+                                    <t t-esc="o.reservation_line.checkout.strftime('%d/%m/%Y')"/>
+                                </li>
+                                <li>
+                                    <strong>No of Guests:</strong>
+                                    <t t-esc="o.adults"/>
+                                </li>
+                                <li>
+                                    <strong>Room Number/Type:</strong>
+                                    <t t-esc="o.reservation_line.room_number.name"/>
+                                </li>
+                                <li>
+                                    <strong>No of Nights:</strong>
+<!--                                    <t t-esc=""/>-->
+                                </li>
+                                <li>
+                                    <strong>Company:</strong>
+                                    <t t-esc="o.company_id.name"/>
+                                </li>
+                                <li>
+                                    <strong>Rate per Night:</strong>
+                                    <t t-esc="o.reservation_line.sub_total1"/>
+                                </li>
+                                <li>
+                                    <strong>Billing Instruction:</strong>
+                                    <strong>Entire Bill to Company</strong>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div style="margin-top: 20px;">
+                            <h4>Important Notes</h4>
+                            <p>All reservations not guaranteed with a valid credit card or a company credit letter will
+                                be
+                                released 12 hours prior to the day of arrival. Guaranteed reservations must be cancelled
+                                48
+                                hours prior to arrival to avoid one-night charge. Please send us your Credit Card
+                                details to
+                                guarantee your reservation.
+                            </p>
+                            <p>All reservations are inclusive of 10% Municipality Fee, 10% Service Charge, 5% VAT is
+                                applicable per night/per room.
+                            </p>
+                            <p>Customer Preference / Requests are subject to availability and Pets are not allowed.</p>
+                            <p>All guests must check-in together with original passport or Emirates ID.</p>
+                            <p>For early check-in request for arrival before 9am, kindly reserve for the previous
+                                night.
+                            </p>
+                            <p>Request for early check-in between 09:00 to 14:00 hours and late check-out between 12.00
+                                to
+                                14.00 hours will be subject to availability or pay 50% additional of your Room Rate
+                                charge
+                                to get it confirmed.
+                            </p>
+
+                            <h4>Additional Notes</h4>
+                            <p>For other inquiries or future bookings, kindly visit our website or contact us at:
+                                reservation@alhayat-hotel.com; [www.alhayat-hotel.com](https://www.alhayat-hotel.com).
+                            </p>
+
+                            <p>Best Regards,</p>
+                            <p>
+                                <t t-esc="o.env.user.name"/>
+                            </p>
+                            <p>Reservation Department</p>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

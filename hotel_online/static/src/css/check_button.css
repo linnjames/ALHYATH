@@ -1,0 +1,71 @@
+.check-button {
+            background-color: #296981;
+            border: none;
+            color: #ffffff;
+            padding: 10px 45px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            font-family: 'Arial', sans-serif;
+            font-weight: bold;
+            margin-top: 28px;
+            margin-left: 145px;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+.check-button:hover {
+    background-color: #114052;
+}
+
+.check-button:active {
+    background-color: #1f6481;
+}
+
+    .search-input {
+        cursor: pointer;
+        padding: 10px 15px;
+        height: 100%;
+        position: relative;
+        display: grid;
+    }
+
+    .search-input p {
+        font-family: 'Arial', sans-serif;
+        margin-left: 3px;
+        font-size: 18px;
+        color: #333;
+        margin-left:170px;
+        margin-bottom: 10px;
+    }
+
+    .search-input input[type="date"] {
+        appearance: none;
+        background-color: #f5f5f5;
+        border: none;
+        padding: 10px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 14px;
+        color: #333;
+        border-radius: 6px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        outline: none;
+        transition: background-color 0.3s, box-shadow 0.3s;
+        width: 100%;
+        margin-bottom: 0px;
+    }
+
+    .input-field{
+        margin-left:30px;
+    }
+
+    .booking-menu a:hover {
+    text-decoration: none;
+    }
+
+    .booking-menu {
+    margin-top: 5px;
+    }

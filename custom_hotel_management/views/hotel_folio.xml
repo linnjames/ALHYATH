@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_hotel_folio1_line_form_inherited" model="ir.ui.view">
+            <field name="name">hotel_folio.line.form.inherited</field>
+            <field name="model">hotel.folio</field>
+            <field name="inherit_id" ref="hotel.view_hotel_folio1_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='checkin_date']" position="after">
+                    <field name="late_checkout"/>
+                </xpath>
+                <xpath expr="//field[@name='checkout_date']" position="after">
+                    <field name="tip"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="hotel_folio_form_inherit_state">
+            <field name="name">hotel.folio.inherit2</field>
+            <field name="model">hotel.folio</field>
+            <field name="inherit_id" ref="hotel.view_hotel_folio1_form"/>
+            <field name="arch" type="xml">
+                <xpath
+                        expr="/form/sheet/notebook/page[@name='Folio']/field[@name='service_lines']"
+                        position="after">
+
+                    <separator string="Room Service Food"/>
+                    <field name="room_service_food_lines" colspan="4" string="Room Service Food Line"
+                           nolabel="1">
+                        <form name="Room Service Food Line">
+                            <notebook>
+                                <page name="Room Service Food Line">
+                                    <separator string="Automatic Declaration" colspan="4"/>
+                                    <group colspan="4" col="6">
+                                        <field name="product_uom_category_id" invisible="1"/>
+                                        <field name="product_uom_qty"
+                                               context="{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id}"/>
+                                        <field name="product_uom"
+                                               options='{"no_open": True}'/>
+                                        <field name="product_id"
+                                               context="{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id}"
+                                               groups="base.group_user" domain="[('ismenucard','=',True)]"
+                                               attrs="{'readonly': [('product_uom_qty', '=', 0)]}"/>
+                                    </group>
+                                    <separator string="Manual Description" colspan="4"/>
+                                    <group colspan="4" col="6">
+                                        <field name="name" colspan="4"/>
+                                        <field name="price_unit"/>
+                                    </group>
+                                    <group>
+                                        <field name="discount"/>
+                                        <field name="tax_id" widget="many2many_tags"
+                                               domain="[('type_tax_use','!=','purchase')]"/>
+                                    </group>
+                                </page>
+                                <page name="History">
+                                    <separator string="Invoice Lines" colspan="4"/>
+                                    <field name="invoice_lines" colspan="4" nolabel="1"/>
+                                </page>
+
+                            </notebook>
+                        </form>
+                        <tree name="Room Service Food Line">
+                            <field name="state" invisible="1"/>
+                            <field name="product_id"/>
+                            <field name="name"/>
+                            <field name="source_origin"/>
+                            <field name="product_uom_category_id" invisible="1"/>
+                            <field name="product_uom_qty"/>
+                            <field name="tax_id" widget="many2many_tags"/>
+                            <field name="price_unit"/>
+                            <field name="price_subtotal"/>
+                        </tree>
+                    </field>
+
+                    <separator string="Coffee Shop Food"/>
+                    <field name="coffee_shop_food_lines" colspan="4" string="Coffee Shop Food Line"
+                           nolabel="1">
+                        <form name="Coffee Shop Food Line">
+                            <notebook>
+                                <page name="Coffee Shop Food Line">
+                                    <separator string="Automatic Declaration" colspan="4"/>
+                                    <group colspan="4" col="6">
+                                        <field name="product_uom_category_id" invisible="1"/>
+                                        <field name="product_uom_qty"
+                                               context="{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id}"/>
+                                        <field name="product_uom"
+                                               options='{"no_open": True}'/>
+                                        <field name="product_id"
+                                               context="{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id}"
+                                               groups="base.group_user" domain="[('ismenucard','=',True)]"
+                                               attrs="{'readonly': [('product_uom_qty', '=', 0)]}"/>
+                                    </group>
+                                    <separator string="Manual Description" colspan="4"/>
+                                    <group colspan="4" col="6">
+                                        <field name="name" colspan="4"/>
+                                        <field name="price_unit"/>
+                                    </group>
+                                    <group>
+                                        <field name="discount"/>
+                                        <field name="tax_id" widget="many2many_tags"
+                                               domain="[('type_tax_use','!=','purchase')]"/>
+                                    </group>
+                                </page>
+                                <page name="History">
+                                    <separator string="Invoice Lines" colspan="4"/>
+                                    <field name="invoice_lines" colspan="4" nolabel="1"/>
+                                </page>
+
+                            </notebook>
+                        </form>
+                        <tree name="Coffee Shop Food Line">
+                            <field name="state" invisible="1"/>
+                            <field name="product_id"/>
+                            <field name="name"/>
+                            <field name="source_origin"/>
+                            <field name="product_uom_category_id" invisible="1"/>
+                            <field name="product_uom_qty"/>
+                            <field name="tax_id" widget="many2many_tags"/>
+                            <field name="price_unit"/>
+                            <field name="price_subtotal"/>
+                        </tree>
+                    </field>
+
+                    <separator string="Minibar"/>
+                    <field name="minibar_lines" colspan="4" string="Minibar Line"
+                           nolabel="1">
+                        <form name="Minibar Line">
+                            <notebook>
+                                <page name="Minibar Line">
+                                    <separator string="Automatic Declaration" colspan="4"/>
+                                    <group colspan="4" col="6">
+                                        <field name="product_uom_category_id" invisible="1"/>
+                                        <field name="product_uom_qty"
+                                               context="{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id}"/>
+                                        <field name="product_uom"
+                                               options='{"no_open": True}'/>
+                                        <field name="product_id"
+                                               context="{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id}"
+                                               groups="base.group_user" domain="[('ismenucard','=',True)]"
+                                               attrs="{'readonly': [('product_uom_qty', '=', 0)]}"/>
+                                    </group>
+                                    <separator string="Manual Description" colspan="4"/>
+                                    <group colspan="4" col="6">
+                                        <field name="name" colspan="4"/>
+                                        <field name="price_unit"/>
+                                    </group>
+                                    <group>
+                                        <field name="discount"/>
+                                        <field name="tax_id" widget="many2many_tags"
+                                               domain="[('type_tax_use','!=','purchase')]"/>
+                                    </group>
+                                </page>
+                                <page name="History">
+                                    <separator string="Invoice Lines" colspan="4"/>
+                                    <field name="invoice_lines" colspan="4" nolabel="1"/>
+                                </page>
+
+                            </notebook>
+                        </form>
+                        <tree name="Minibar Line">
+                            <field name="state" invisible="1"/>
+                            <field name="product_id"/>
+                            <field name="name"/>
+                            <field name="source_origin"/>
+                            <field name="product_uom_category_id" invisible="1"/>
+                            <field name="product_uom_qty"/>
+                            <field name="tax_id" widget="many2many_tags"/>
+                            <field name="price_unit"/>
+                            <field name="price_subtotal"/>
+                        </tree>
+                    </field>
+
+                    <separator string="Banquet Line"/>
+                    <field name="banquet_lines" colspan="4" string="Banquet Line"
+                           nolabel="1">
+                        <form name="Banquet Line">
+                            <notebook>
+                                <page name="Banquet Line">
+                                    <separator string="Automatic Declaration" colspan="4"/>
+                                    <group colspan="4" col="6">
+                                        <field name="product_uom_category_id" invisible="1"/>
+                                        <field name="product_uom_qty"
+                                               context="{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id}"/>
+                                        <field name="product_uom"
+                                               options='{"no_open": True}'/>
+                                        <field name="product_id"
+                                               context="{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id}"
+                                               groups="base.group_user" domain="[('ismenucard','=',True)]"
+                                               attrs="{'readonly': [('product_uom_qty', '=', 0)]}"/>
+                                    </group>
+                                    <separator string="Manual Description" colspan="4"/>
+                                    <group colspan="4" col="6">
+                                        <field name="name" colspan="4"/>
+                                        <field name="price_unit"/>
+                                    </group>
+                                    <group>
+                                        <field name="discount"/>
+                                        <field name="tax_id" widget="many2many_tags"
+                                               domain="[('type_tax_use','!=','purchase')]"/>
+                                    </group>
+                                </page>
+                                <page name="History">
+                                    <separator string="Invoice Lines" colspan="4"/>
+                                    <field name="invoice_lines" colspan="4" nolabel="1"/>
+                                </page>
+
+                            </notebook>
+                        </form>
+                        <tree name="Banquet Line">
+                            <field name="state" invisible="1"/>
+                            <field name="product_id"/>
+                            <field name="name"/>
+                            <field name="source_origin"/>
+                            <field name="product_uom_category_id" invisible="1"/>
+                            <field name="product_uom_qty"/>
+                            <field name="tax_id" widget="many2many_tags"/>
+                            <field name="price_unit"/>
+                            <field name="price_subtotal"/>
+                        </tree>
+                    </field>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

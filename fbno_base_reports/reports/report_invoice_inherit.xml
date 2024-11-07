@@ -1,0 +1,260 @@
+<odoo>
+
+    <!--Header and Footer-->
+    <template id="external_layout_clean_custom">
+        <t t-if="not o" t-set="o" t-value="doc"/>
+        <t t-if="not company">
+            <!-- Multicompany -->
+            <t t-if="company_id">
+                <t t-set="company" t-value="company_id"/>
+            </t>
+            <t t-elif="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id.sudo()"/>
+            </t>
+            <t t-else="else">
+                <t t-set="company" t-value="res_company"/>
+            </t>
+        </t>
+
+        <div class="header">
+            <div class="o_clean_header">
+            <div class="float-right">
+                <h3 class="mt0 text-right" t-field="company.report_header"/>
+            </div>
+            <div class="" style="margin-left:50px; margin-top:-8px; font-size: 16px; text-align: center; width: 100%; position: absolute;">
+                <div style="font-size: 25px;">
+                    <strong t-field="o.branch_id.company_id.company_arabic"/><br/>
+                    <strong t-field="o.branch_id.company_id.partner_id.name"/>
+                </div>
+                <span t-field="o.branch_id.street"/>,<span t-field="o.branch_id.street2"/><br/>
+
+                <t t-if="o.branch_id.email">
+                    <i style="font-size:15px;" class="fa fa-envelope-o" aria-hidden="true"/>
+                    <span t-field="o.branch_id.email"/> &amp;nbsp; &amp;nbsp;|
+                </t>
+                <t t-if="o.branch_id.phone">
+                    &amp;nbsp; &amp;nbsp;<i style="font-size:15px;" class="fa fa-phone" aria-hidden="true"/>
+                    <span t-field="o.branch_id.phone"/>
+                </t>
+            </div>
+            <img t-if="o.branch_id.company_id.logo" t-att-src="image_data_uri(o.branch_id.company_id.logo)" class="float-left" style="max-height: 135px;" alt="Logo"/>
+            <div class="clearfix mb8"/>
+            </div>
+        </div>
+
+        <div t-attf-class="article o_report_layout_clean o_company_#{company.id}_layout"  t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+            <t t-call="web.address_layout"/>
+            <t t-raw="0"/>
+        </div>
+
+        <div class="footer o_background_footer">
+            <div class="text-center">
+                <div t-if="report_type == 'pdf'" class="text-muted">
+                    Page:
+                    <span class="page"/>
+                    of
+                    <span class="topage"/>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!--inherit default invoice report and change to custom created report-->
+    <template id="report_invoice_document" name="report_invoice_document_modified"
+              inherit_id="account.report_invoice_document">
+        <xpath expr="//t[@t-call='web.external_layout']" position="replace">
+            <t t-call="fbno_base_reports.external_layout_clean_custom">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-if="not o" t-set="o" t-value="doc"/>
+                    <t t-if="not company">
+                        <!-- Multicompany -->
+                        <t t-if="company_id">
+                            <t t-set="company" t-value="company_id"/>
+                        </t>
+                        <t t-elif="o and 'company_id' in o">
+                            <t t-set="company" t-value="o.company_id.sudo()"/>
+                        </t>
+                        <t t-else="else">
+                            <t t-set="company" t-value="res_company"/>
+                        </t>
+                    </t>
+                    <t t-set="doc" t-value="doc.with_context(lang=doc.partner_id.lang)"/>
+                    <div class="page">
+                        <style>
+                            .head {
+                                border: 1px solid black;
+                            }
+                            .head_main {
+                                height : 30px;
+                                width : 70%;
+                                vertical-align : middle;
+                                border: 1px solid black;
+                            }
+                            .head_sub {
+                                height : 25px;
+                                text-align : left;
+                                font-size : 15px;
+                                border: 1px solid black;
+                            }
+
+                            .main_head {
+                                text-align : right;
+                                border: 1px solid black;
+                            }
+                            .main_head th {
+                                border: 1px solid black;
+                            }
+                            .main_body {
+                                text-align : right;
+                                border: 1px solid black;
+                            }
+                            .main_body td {
+                                border: 1px solid black;
+                            }
+
+                            .bottom_main {
+                                 border: 1px solid black;
+                                 height : 20px;
+                            }
+                            .bottom_main td {
+                                 border: 1px solid black;
+                            }
+                            .bottom_sub {
+                                height : 20px;
+                                text-align : left;
+                                border: 1px solid black;
+                            }
+                            .bottom_sub_right{
+                                border: 1px solid black;
+                                height : 20px;
+                                text-align : right;
+                            }
+                        </style>
+
+                        <table class="table table-sm o_head_table">
+                            <thead class="head">
+                                <tr>
+                                    <th style="font-size:22px;" class="head_main">TAX INVOICE</th>
+                                    <th class="head_main">
+                                        <t t-if="company.partner_id.vat">
+                                            <t t-esc="company.country_id.vat_label or 'Tax ID'"/>:
+                                            <span t-field="company.vat"/>
+                                        </t>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th class="head_sub">Invoice To :
+                                        <span t-field="doc.partner_id.name"/>
+                                    </th>
+                                    <th class="head_sub">Invoice :
+                                        <span t-field="doc.name"/>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th class="head_sub">Address :
+                                        <t t-if="doc.partner_id.street">
+                                            <div style="margin-top:-18px; margin-left:75px;">
+                                                <span t-field="doc.partner_id.street"/>
+                                                <br/>
+                                                <span t-field="doc.partner_id.state_id.name"/>,
+                                                <span t-field="doc.partner_id.country_id.name"/>
+                                            </div>
+                                        </t>
+                                    </th>
+                                    <th class="head_sub">Date :
+                                        <span t-field="doc.invoice_date"/>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th class="head_sub">
+                                        <t t-if="doc.partner_id.vat">
+                                            <t t-esc="company.country_id.vat_label or 'Tax ID'"/>:
+                                            <span t-field="doc.partner_id.vat"/>
+                                        </t>
+                                        <t t-else="">
+                                            TRN :
+                                        </t>
+                                    </th>
+                                    <th class="head_sub">Ship Date :
+                                        ####
+                                    </th>
+                                </tr>
+                            </thead>
+                        </table>
+
+                        <table class="table table-sm o_main_table">
+                            <thead class="main_head">
+                                <tr>
+                                    <th style="text-align:left;">Description</th>
+                                    <th>Qty</th>
+                                    <th>Unit Price</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+
+                            <tbody class="main_body">
+                                <t t-foreach="doc.invoice_line_ids" t-as="line">
+                                    <tr>
+                                        <td style="text-align:left;">
+                                            <span t-field="line.product_id.name"/>
+                                        </td>
+                                        <td><span t-field="line.quantity"/></td>
+                                        <td><span t-field="line.price_unit"/></td>
+                                        <td><span t-field="line.price_subtotal"/></td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+
+                        <div class="row">
+                            <div class="col-7">
+                                <div>
+                                    <br/><br/>
+                                    <t t-if="doc.narration">
+                                        <b><span t-field="doc.narration"/></b>
+                                    </t>
+                                    <br/><br/>
+                                    <t t-if="doc.invoice_user_id">
+                                        <b>Received by : <span t-field="doc.invoice_user_id.name"/></b>
+                                    </t>
+                                </div>
+                            </div>
+                            <div class="col-5">
+                                <table class="table table-sm o_bottom_table">
+                                    <thead class="bottom_main">
+                                        <tr>
+                                            <th class="bottom_sub"><b>Subtotal</b></th>
+                                            <th class="bottom_sub_right">
+                                                <strong t-field="doc.amount_untaxed"/>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <t t-set="tax_totals" t-value="doc.tax_totals"/>
+                                            <t t-foreach="tax_totals['subtotals']" t-as="subtotal">
+                                                <t t-set="subtotal_to_show" t-value="subtotal['name']"/>
+                                                <t t-call="account.tax_groups_totals"/>
+                                            </t>
+                                        </tr>
+                                        <tr>
+                                            <th class="bottom_sub"><b>Total</b></th>
+                                            <th class="bottom_sub_right">
+                                                <strong t-field="doc.amount_total"/>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th class="bottom_sub"><b>Balance</b></th>
+                                            <th class="bottom_sub_right">
+                                                <strong t-field="doc.amount_residual"/>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </xpath>
+    </template>
+
+</odoo>

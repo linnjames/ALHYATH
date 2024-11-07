@@ -1,0 +1,106 @@
+<template id="hotel_dashboard_template" xml:space="preserve">
+  <t t-name="hotel_dashboard_template">
+    <div class="container-fluid background" style="background: linear-gradient(to bottom, #e1f5fe, #e6e6e6); overflow-y: auto; height: -webkit-fill-available; overflow-x: overlay; padding: 15px;">
+
+      <!-- My Company Element -->
+      <div class="col-md-12 hotel mb-3" style="font-weight: bold; display: flex; justify-content: center; align-items: center;">
+        <select class="form-select" id="shops" style="color: #333; font-family: 'Lato', sans-serif; width: 150px; height: 30px;">
+          <option value="1">My Company</option>
+        </select>
+        <button id="dashboard_reload" class="btn btn-primary btn-sm" style="margin-left: 10px; height: 30px; padding: 0 10px;">
+          <span class="fa fa-refresh"></span>
+        </button>
+      </div>
+
+      <div class="row">
+        <!-- Side 1: Vertical Booking Information -->
+        <div class="col-md-3 mb-3">
+          <div class="dashboard-box p-3 card-3d-effect box-blue" style="box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+            <div class="box-icon">
+              <i class="fa fa-sign-in fa-2x" style="color: #007bff;"></i>
+            </div>
+            <div class="box-content">
+              <h3 class="box-title">Check-in Request</h3>
+              <div class="box-value" id="check_in" style="font-size: 2em;">10</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3 mb-3">
+          <div class="dashboard-box p-3 card-3d-effect box-orange" style="box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+            <div class="box-icon">
+              <i class="fa fa-sign-out fa-2x" style="color: #ff9f00;"></i>
+            </div>
+            <div class="box-content">
+              <h3 class="box-title">Check-out Request</h3>
+              <div class="box-value" id="check_out" style="font-size: 2em;">5</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3 mb-3">
+          <div class="dashboard-box p-3 card-3d-effect box-green" style="box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+            <div class="box-icon">
+              <i class="fa fa-home fa-2x" style="color: #28a745;"></i>
+            </div>
+            <div class="box-content">
+              <h3 class="box-title">Total Room Available</h3>
+              <div class="box-value" id="total" style="font-size: 2em;">25</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3 mb-3">
+          <div class="dashboard-box p-3 card-3d-effect box-purple" style="box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+            <div class="box-icon">
+              <i class="fa fa-check-circle fa-2x" style="color: #6c757d;"></i>
+            </div>
+            <div class="box-content">
+              <h3 class="box-title">Total Room Booked</h3>
+              <div class="box-value" id="booked" style="font-size: 2em;">15</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3 mb-3">
+          <div class="dashboard-box p-3 card-3d-effect box-orange" style="box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+            <div class="box-icon">
+              <i class="fa fa-refresh fa-2x" style="color: #6c757d;"></i>
+            </div>
+            <div class="box-content">
+              <h3 class="box-title">Rooms Under Cleaning</h3>
+              <div class="box-value" id="room_cleaning" style="font-size: 2em;">0</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3 mb-3">
+          <div class="dashboard-box p-3 card-3d-effect box-purple" style="box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+            <div class="box-icon">
+              <i class="fa fa-bell fa-2x" style="color: #6c757d;"></i>
+            </div>
+            <div class="box-content">
+              <h3 class="box-title">Rooms Under Maintenance</h3>
+              <div class="box-value" id="room_maintenance" style="font-size: 2em;">0</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Side 2: Calendar -->
+      <div class="color_information row" style="margin-top: 35px;">
+        <div class="col-md-12" style="margin-top: 10px; font-weight: bold; display: flex; justify-content: center;">
+          <span class="dashboard-badge badge-blue">Booking</span>
+          <span class="dashboard-badge badge-brown">Confirmed</span>
+          <span class="dashboard-badge badge-green">Checked-in</span>
+          <span class="dashboard-badge badge-orange">Checkout</span>
+          <span class="dashboard-badge badge-grey">Under Cleaning</span>
+          <span class="dashboard-badge badge-purple">Under Maintenance</span>
+        </div>
+      </div>
+      <div class="col-xs-12 col-md-12 hover-color">
+        <div id='booking_calendar' style="margin-top: 54px;"></div>
+      </div>
+    </div>
+  </t>
+</template>

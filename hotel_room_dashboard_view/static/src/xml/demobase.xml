@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template id="template" xml:space="preserve">
+	<t t-name="RoomDashboardView">
+
+		<!-- Main container to split the screen 50-50 -->
+		<div class="dashboard-container" style="display: flex; width: 100%; height: 100vh;">
+
+			<!-- Left side (50%) for the dashboard -->
+			<div class="room_dashboard container" style="width: 50%; padding: 10px; box-sizing: border-box;">
+				<div class="header">
+					<label class="header_lbl">Hotel Room Dashboard View</label>
+					<img src="/hotel_room_dashboard_view/static/src/img/close-button1.png" id="close_button"
+						 class="close_button"/>
+				</div>
+
+				<div class="topbar">
+					<table class="tbl_data" width="100%">
+						<tr>
+							<td>Hotel :</td>
+							<td><select id="shops" title="Select Hotel"></select></td>
+							<td>Room Type :</td>
+							<td><select id="room_type" title="Select Room Type"></select></td>
+							<td></td>
+							<td rowspan="2">
+								<table class="color_information">
+									<tr>
+										<td><span style="color:#32CD32;background-color: #32CD32;">******</span></td>
+										<td>: Available</td>
+									</tr>
+									<tr>
+										<td><span style="color:#FFDA2F;background-color:#FFDA2F">******</span></td>
+										<td>: Booked - Status : Draft</td>
+									</tr>
+									<tr>
+										<td><span style="color:#A6A6A6;background-color:#A6A6A6;">******</span></td>
+										<td>: Booked - Status : Complete</td>
+									</tr>
+									<tr>
+										<td><span style="color:#FF0000;background-color:#FF0000">******</span></td>
+										<td>: Booked - Status : Done</td>
+									</tr>
+									<tr>
+										<td><span style="color:#61380B;background-color:#61380B">******</span></td>
+										<td>: Booked and Under Maintenance</td>
+									</tr>
+									<tr>
+										<td><span style="color:black;background-color:black">******</span></td>
+										<td>: Unavailable/ Under Maintenance</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<td>From Date :</td>
+							<td><input id="from_date" type="text" title="Enter Check-In Date" placeholder="Enter Check-In Date" size='25'/></td>
+							<td>To Date :</td>
+							<td><input id="to_date" type="text" size='25' title="Enter Check-Out Date" placeholder="Enter Check-Out Date"/></td>
+							<td><button id="show_dashboard" name="Show Dashboard" title="Click to See Room Availability Dashboard">Show Dashboard</button></td>
+						</tr>
+					</table>
+				</div>
+				<div id="div_res_info" class="bottom_div">
+					<div id="powered_by" class="powered_by_img">
+						Powered By,<br/>
+						<img src="/hotel_room_dashboard_view/static/src/img/prag_logo.png"/>
+					</div>
+					<table id="tbl_dashboard" class="CSSTableGenerator"></table>
+				</div>
+			</div>
+
+			<!-- Right side (50%) for the new view -->
+			<div class="new_view" style="width: 50%; padding: 10px; box-sizing: border-box;">
+				<!-- Add your new view content here -->
+				<h2>New View Section</h2>
+				<p>This space can be used for additional content or functionality.</p>
+			</div>
+
+		</div>
+
+	</t>
+</template>

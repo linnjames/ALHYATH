@@ -1,0 +1,60 @@
+
+<odoo>
+    <data>
+        <record id="email_template_registration_confirmation" model="mail.template">
+            <field name="name">Reservation Confirmation Email</field>
+            <field name="model_id" ref="reservation_mail.model_hotel_reservation"/>
+            <field name="subject">Reservation Confirmation</field>
+            <field name="auto_delete" eval="False"/>
+            <field name="lang">${object.lang}</field>
+
+            <field name="body_html">
+                <![CDATA[
+                <div style="font-family: 'Arial', sans-serif; font-size: 14px;">
+                    <h2><t t-esc="object.company_id.name"/></h2>
+                    <p t-esc="object.company_id.street"/>
+                    <p t-esc="object.company_id.city"/>
+                    <p t-esc="object.company_id.phone"/>-+=
+                    <p t-esc="object.company_id.website"/>
+
+                    <h3>Reservation Confirmation No: <t t-esc="object.name"/></h3>
+
+                    <p>Dear <t t-esc="object.partner_id.name"/>,</p>
+                    <p>Thank you for choosing <t t-esc="object.company_id.name"/>! We are pleased to confirm your reservation details:</p>
+
+                    <p><strong>Guest Name:</strong> <t t-esc="object.partner_id.name"/></p>
+<!--                    <p><strong>Vessel Name:</strong> <t t-esc="object.vessel_name"/></p>-->
+
+                    <p><strong>Arrival Date:</strong> <t t-esc="object.reservation_line.checkin.strftime('%d/%m/%Y')"/></p>
+                    <p><strong>Departure Date:</strong> <t t-esc="object.reservation_line.checkout.strftime('%d/%m/%Y')"/></p>
+                    <p><strong>No. of Guests:</strong> <t t-esc="object.adults"/></p>
+                    <p><strong>Room Number/Type:</strong> <t t-esc="object.reservation_line.room_number.name"/></p>
+<!--                    <p><strong>No. of Nights:</strong> <t t-esc="object.number_of_nights"/></p>-->
+                    <p><strong>Company:</strong> <t t-esc="object.company_id.name"/></p>
+                    <p><strong>Rate per Night:</strong> <t t-esc="object.reservation_line.sub_total1"/> AED (Bed and Breakfast)</p>
+                    <p><strong>Billing Instructions:</strong>Entire Bill To Company</p>
+
+                    <h4>Flight Details</h4>
+                    <p>Arrival at / By: <t t-esc=""/></p>
+                    <p>Departure at / By: <t t-esc=""/></p>
+
+                    <h4>Important Notes</h4>
+                    <p>All reservations not guaranteed with a valid credit card or a company credit letter will be released 12 hours prior to the day of arrival.Guaranteed reservations must be cancelled 48 hours prior to arrival to avoid one-night charge.Please send us your Credit Card details to guarantee your reservation.</p>
+                    <p>All reservations are inclusive of 10% Municipality Fee, 10% Service Charge, 5% VAT is applicable per night/per room.</p>
+                    <p>Customer Preference / Requests are subject to availability and Pets are not allowed.</p>
+                    <p>All guests must check-in together with original passport or Emirates ID.</p>
+                    <p>For early check-in request for arrival before 9am, kindly reserve for previous night.</p>
+                    <p>Request for early check-in between 09:00 to 14:00 hours and late check-out between 12.00 to 14.00 hours will be subject to availability or pay 50% additional of your Room Rate charge to get it confirmed.</p>
+
+                    <h4>Additional Notes</h4>
+                    <p>For other inquiries or future bookings, kindly visit our websites or contact us at: reservation@alhayat-hotel.com; [www.alhayat-hotel.com](https://www.alhayat-hotel.com).</p>
+
+                    <p>Best Regards,</p>
+                    <p><t t-esc="object.activity_user_id.name"/></p>
+                    <p>Reservation Department</p>
+                </div>
+                ]]>
+            </field>
+        </record>
+    </data>
+</odoo>

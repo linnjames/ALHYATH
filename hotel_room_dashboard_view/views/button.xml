@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="action_expected_arrival" model="ir.actions.act_window">
+        <field name="name">Expected Arrivals</field>
+        <field name="res_model">hotel.reservation</field>
+        <field name="view_mode">tree</field>
+        <field name="domain">[('date_order', '=', context_today())]</field>
+    </record>
+
+    <record id="action_expected_departure" model="ir.actions.act_window">
+        <field name="name">Expected Departures</field>
+        <field name="res_model">hotel.reservation</field>
+        <field name="view_mode">tree</field>
+        <field name="domain">[('departure_date', '=', context_today())]</field>
+    </record>
+</odoo>

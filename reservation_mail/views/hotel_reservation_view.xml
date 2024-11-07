@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_hotel_reservation_form1_inherit_send_mail" model="ir.ui.view">
+            <field name="name">hotel.reservation.form1.inherit</field>
+            <field name="model">hotel.reservation</field>
+            <field name="inherit_id" ref="hotel_management.view_hotel_reservation_form1"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header/button[@name='advance_payment']" position="after">
+                        <button name="action_send_mail"
+                                type="object"
+                                class="oe_stat_button"
+                                string="Send Mail"
+                                states="confirm">
+                        </button>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

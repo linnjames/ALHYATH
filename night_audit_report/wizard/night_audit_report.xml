@@ -1,0 +1,28 @@
+<odoo>
+     <record id="night_audit_report_form_view" model="ir.ui.view">
+        <field name="name">night.audit.report.wiz.form.view</field>
+        <field name="model">night.audit.report.wiz</field>
+        <field name="arch" type="xml">
+            <form string="Report Wizard">
+                <separator string="Fill The Details" colspan="4"/>
+                <group colspan="4" col="4">
+                    <field name="date"/>
+                </group>
+                <footer>
+                    <button special="cancel" string="Cancel" icon="fa-times"/>
+                    <button name="generate_xlsx_report" string="Print XLSX" type="object" class="btn-primary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+     <record id="action_night_audit_report" model="ir.actions.act_window">
+        <field name="name">Night Audit Report</field>
+        <field name="res_model">night.audit.report.wiz</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+   <menuitem id="menu_night_audit_report" name="Night Audit Report" action="action_night_audit_report" parent="hotel.hotel_report_menu"/>
+
+</odoo>

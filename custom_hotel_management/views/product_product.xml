@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="product_product_form_view_inherit">
+            <field name="name">product.product.form.inherit.meal</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='shop_id']" position="after">
+                    <field name="is_meal_product"/>
+                    <field name="meal_charge" attrs="{'invisible': [('is_meal_product', '=', False)]}"/>
+                </xpath>
+
+                <xpath expr="//field[@name='is_meal_product']" position="before">
+                    <field name="is_room"/>
+                    <field name="room_charge" attrs="{'invisible': [('is_room', '=', False)]}"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

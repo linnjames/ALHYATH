@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_room_food_line_mng,room_food.line,model_room_food_line,base.group_user,1,1,1,1
+access_coffee_shop_food_line,coffee_shop_food.line,model_coffee_shop_food_line,base.group_user,1,1,1,1
+access_minibar_line,minibar.line,model_minibar_line,base.group_user,1,1,1,1
+access_banquet_line,banquet.line,model_banquet_line,base.group_user,1,1,1,1
+

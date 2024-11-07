@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="night_audit_report_xlsx" model="ir.actions.report">
+        <field name="name">Night Audit Report</field>
+        <field name="model">report.night_audit_report.night_audit_report_xlsx</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">night_audit_report.night_audit_report_xlsx</field>
+    </record>
+</odoo>

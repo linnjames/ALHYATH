@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<record id="hotel_reservation_confirmation_report_format" model="report.paperformat">
+			<field name="name">European A4 low margin</field>
+			<field name="default" eval="True"/>
+			<field name="format">custom</field>
+			<field name="page_height">400</field>
+			<field name="page_width">200</field>
+			<field name="orientation">Portrait</field>
+			<field name="margin_top">10</field>
+			<field name="margin_bottom">0</field>
+			<field name="margin_left">5</field>
+			<field name="margin_right">5</field>
+			<field name="header_line" eval="True"/>
+			<field name="header_spacing">60</field>
+			<field name="dpi">80</field>
+		</record>
+
+		<record id="hotel_reservation_confirmation_report" model="ir.actions.report">
+			<field name="name">Hotel Reservation Confirmation Report</field>
+			<field name="model">hotel.reservation</field>
+			<field name="report_type">qweb-pdf</field>
+			<field name="report_name">reservation_mail.hotel_reservation_confirmation_report_pdf</field>
+			<field name="report_file">reservation_mail.hotel_reservation_confirmation_report_pdf</field>
+			<field name="print_report_name">('Reservation Confirmation')</field>
+			<field name="paperformat_id" ref="reservation_mail.hotel_reservation_confirmation_report_format"/>
+		</record>
+
+		<record id="hotel_registration_card_report_format" model="report.paperformat">
+			<field name="name">European A4 low margin</field>
+			<field name="default" eval="True"/>
+			<field name="format">custom</field>
+			<field name="page_height">300</field>
+			<field name="page_width">200</field>
+			<field name="orientation">Portrait</field>
+			<field name="margin_top">10</field>
+			<field name="margin_bottom">0</field>
+			<field name="margin_left">5</field>
+			<field name="margin_right">5</field>
+			<field name="header_line" eval="True"/>
+			<field name="header_spacing">60</field>
+			<field name="dpi">80</field>
+		</record>
+
+		<record id="hotel_registration_card" model="ir.actions.report">
+			<field name="name">Hotel Registration Card</field>
+			<field name="model">hotel.reservation</field>
+			<field name="report_type">qweb-pdf</field>
+			<field name="report_name">reservation_mail.hotel_registration_card_pdf</field>
+			<field name="report_file">reservation_mail.hotel_registration_card_pdf</field>
+			<field name="print_report_name">('Registration Card')</field>
+			<field name="paperformat_id" ref="reservation_mail.hotel_registration_card_report_format"/>
+		</record>
+
+
+	</data>
+</odoo>
+
+		

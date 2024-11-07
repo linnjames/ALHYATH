@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+<!--    <template id="hotel_order_summary_report_pdf">-->
+<!--        <t t-call="web.html_container">-->
+<!--            <t t-call="web.basic_layout">-->
+<!--                <t t-foreach="docs" t-as="o">-->
+<!--                    <style type="text/css">-->
+<!--                        #table_value_border {-->
+<!--                        vertical-align: middle;-->
+<!--                        text-align: center;-->
+<!--                        border-right: 2px solid black;-->
+<!--                        border-left: 2px solid black;-->
+<!--                        border-top: 2px solid black;-->
+<!--                        border-bottom: 2px solid black;-->
+<!--                        padding: 10px;-->
+<!--                        font-size: 15px;-->
+<!--                        height: 100%;-->
+<!--                        }-->
+<!--                    </style>-->
+<!--                    <div style="text-align: center; margin-bottom: 20px;">-->
+<!--                        <div id="company_name" style="font-size: 30px; font-weight: bold; margin-top: 20px;">-->
+<!--                            <t t-esc="o.company_id.name"/>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    &lt;!&ndash; Hotel Information &ndash;&gt;-->
+<!--                    <div class="hotel-info" style="margin-top: 10px;">-->
+<!--                        <div>-->
+<!--                            <strong>Date:</strong>-->
+<!--                            <t t-esc="time.strftime('%Y-%m-%d')"/>-->
+<!--                        </div>-->
+<!--                        <div>-->
+<!--                            <strong>Customer Name:</strong>-->
+<!--                            <t t-esc="o.partner_id.name"/>-->
+<!--                        </div>-->
+<!--                        <div>-->
+<!--                            <strong>Folio Number:</strong>-->
+<!--                            <t t-esc="o.name"/>-->
+<!--                        </div>-->
+<!--                        <div>-->
+<!--                            <strong>Room:</strong>-->
+<!--                            <t t-esc="', '.join([line.product_id.name for line in o.room_lines])"/>-->
+<!--                        </div>-->
+<!--                        <div>-->
+<!--                            <strong>Room Status:</strong>-->
+<!--                            <t t-esc="o.state"/>-->
+<!--                        </div>-->
+<!--                        <br/>-->
+<!--                        <table style="width: 100%" class="table table-borderless">-->
+<!--                            <tr>-->
+<!--                                <td id="table_value_border" colspan="3">-->
+<!--                                    <h2 style="font-weight:bold;margin:0;padding:0;text-align: center;">Order Summary-->
+<!--                                    </h2>-->
+<!--                                </td>-->
+<!--                            </tr>-->
+<!--                            <tr>-->
+<!--                                <td id="table_value_border">-->
+<!--                                    <strong>Order Type</strong>-->
+<!--                                </td>-->
+<!--                                <td id="table_value_border">-->
+<!--                                    <strong>Description</strong>-->
+<!--                                </td>-->
+<!--                                <td id="table_value_border">-->
+<!--                                    <strong>Amount</strong>-->
+<!--                                </td>-->
+<!--                            </tr>-->
+<!--                            <tr>-->
+<!--                                <td id="table_value_border">-->
+<!--                                    <strong>Room Charge</strong>-->
+<!--                                </td>-->
+<!--                                <td id="table_value_border">-->
+<!--                                    <t t-esc="', '.join([line.name for line in o.room_lines])"/>-->
+<!--                                </td>-->
+<!--                                <td id="table_value_border">-->
+<!--                                    <t t-esc="sum(line.price_subtotal for line in o.room_lines)"/>-->
+<!--                                </td>-->
+<!--                            </tr>-->
+<!--                            <tr>-->
+<!--                                <td id="table_value_border">-->
+<!--                                    <strong>Services</strong>-->
+<!--                                </td>-->
+<!--                                <td id="table_value_border">-->
+<!--                                    <t t-esc="', '.join([line.name for line in o.service_lines])"/>-->
+<!--                                </td>-->
+<!--                                <td id="table_value_border">-->
+<!--                                    <t t-esc="sum(line.price_subtotal for line in o.service_lines)"/>-->
+<!--                                </td>-->
+<!--                            </tr>-->
+<!--                            <tr>-->
+<!--                                <td id="table_value_border">-->
+<!--                                    <strong>Room Service Food</strong>-->
+<!--                                </td>-->
+<!--                                <td id="table_value_border">-->
+<!--                                    <t t-esc="', '.join([line.name for line in o.room_service_food_lines])"/>-->
+<!--                                </td>-->
+<!--                                <td id="table_value_border">-->
+<!--                                    <t t-esc="sum(line.price_subtotal for line in o.room_service_food_lines)"/>-->
+<!--                                </td>-->
+<!--                            </tr>-->
+<!--                            <tr>-->
+<!--                                <td id="table_value_border">-->
+<!--                                    <strong>Coffee Shop Food</strong>-->
+<!--                                </td>-->
+<!--                                <td id="table_value_border">-->
+<!--                                    <t t-esc="', '.join([line.name for line in o.coffee_shop_food_lines])"/>-->
+<!--                                </td>-->
+<!--                                <td id="table_value_border">-->
+<!--                                    <t t-esc="sum(line.price_subtotal for line in o.coffee_shop_food_lines)"/>-->
+<!--                                </td>-->
+<!--                            </tr>-->
+<!--                            <tr>-->
+<!--                                <td id="table_value_border">-->
+<!--                                    <strong>Minibar</strong>-->
+<!--                                </td>-->
+<!--                                <td id="table_value_border">-->
+<!--                                    <t t-esc="', '.join([line.name for line in o.minibar_lines])"/>-->
+<!--                                </td>-->
+<!--                                <td id="table_value_border">-->
+<!--                                    <t t-esc="sum(line.price_subtotal for line in o.minibar_lines)"/>-->
+<!--                                </td>-->
+<!--                            </tr>-->
+<!--                            <tr>-->
+<!--                                <td id="table_value_border">-->
+<!--                                    <strong>Banquet</strong>-->
+<!--                                </td>-->
+<!--                                <td id="table_value_border">-->
+<!--                                    <t t-esc="', '.join([line.name for line in o.banquet_lines])"/>-->
+<!--                                </td>-->
+<!--                                <td id="table_value_border">-->
+<!--                                    <t t-esc="sum(line.price_subtotal for line in o.banquet_lines)"/>-->
+<!--                                </td>-->
+<!--                            </tr>-->
+<!--                            <tr>-->
+<!--                                <td id="table_value_border">-->
+<!--                                    <strong>Restaurant</strong>-->
+<!--                                </td>-->
+<!--                                <td id="table_value_border">-->
+<!--                                    <t t-esc="', '.join([line.name for line in o.food_lines])"/>-->
+<!--                                </td>-->
+<!--                                <td id="table_value_border">-->
+<!--                                    <t t-esc="sum(line.price_subtotal for line in o.food_lines)"/>-->
+<!--                                </td>-->
+<!--                            </tr>-->
+<!--                            <tr>-->
+<!--                                <td id="table_value_border">-->
+<!--                                    <strong>Transport</strong>-->
+<!--                                </td>-->
+<!--                                <td id="table_value_border">-->
+<!--                                    <t t-esc="', '.join([line.name for line in o.transport_line_ids])"/>-->
+<!--                                </td>-->
+<!--                                <td id="table_value_border">-->
+<!--                                    <t t-esc="sum(line.price_subtotal for line in o.transport_line_ids)"/>-->
+<!--                                </td>-->
+<!--                            </tr>-->
+<!--                            <tr>-->
+<!--                                <td id="table_value_border">-->
+<!--                                    <strong>Laundry</strong>-->
+<!--                                </td>-->
+<!--                                <td id="table_value_border">-->
+<!--                                    <t t-esc="', '.join([line.name for line in o.laundry_line_ids])"/>-->
+<!--                                </td>-->
+<!--                                <td id="table_value_border">-->
+<!--                                    <t t-esc="sum(line.price_subtotal for line in o.laundry_line_ids)"/>-->
+<!--                                </td>-->
+<!--                            </tr>-->
+<!--                            <tr class="table-header">-->
+<!--                                <td colspan="2" id="table_value_border">-->
+<!--                                    <strong>Total Amount</strong>-->
+<!--                                </td>-->
+<!--                                <td id="table_value_border">-->
+<!--                                    <t t-esc="sum(line.price_subtotal for line in o.room_lines) + sum(line.price_subtotal for line in o.service_lines) + sum(line.price_subtotal for line in o.room_service_food_lines)-->
+<!--                                        + sum(line.price_subtotal for line in o.room_service_food_lines)  + sum(line.price_subtotal for line in o.coffee_shop_food_lines) + sum(line.price_subtotal for line in o.minibar_lines)-->
+<!--                                        + sum(line.price_subtotal for line in o.banquet_lines) + sum(line.price_subtotal for line in o.food_lines) + sum(line.price_subtotal for line in o.transport_line_ids)-->
+<!--                                        + sum(line.price_subtotal for line in o.laundry_line_ids) "/>-->
+<!--                                </td>-->
+<!--                            </tr>-->
+<!--                        </table>-->
+<!--                    </div>-->
+<!--                </t>-->
+<!--            </t>-->
+<!--        </t>-->
+<!--    </template>-->
+
+
+    <template id="hotel_order_summary_report_pdf">
+        <t t-call="web.html_container">
+            <t t-call="web.basic_layout">
+                <t t-foreach="docs" t-as="o">
+                    <style type="text/css">
+                        #table_value_border {
+                        vertical-align: middle;
+                        text-align: center;
+                        border-right: 2px solid black;
+                        border-left: 2px solid black;
+                        border-top: 2px solid black;
+                        border-bottom: 2px solid black;
+                        padding: 10px;
+                        font-size: 15px;
+                        height: 100%;
+                        }
+                        .footer-company-info {
+                        text-align: center;
+                        font-size: 15px;
+                        margin-top: 150px;
+                        }
+                    </style>
+
+                    <!-- Header with Company Logo -->
+                    <div style="text-align: center; margin-bottom: 20px;">
+                        <div id="company_logo" style="margin-top: 20px;">
+                            <img t-att-src="'data:image/png;base64,' + (o.company_id.logo or b'').decode('utf-8')"
+                                 style="max-height: 100px;" alt="Company Logo"/>
+
+                        </div>
+                        <div id="company_name" style="font-size: 30px; font-weight: bold; margin-top: 10px;">
+                            <t t-esc="o.company_id.name"/>
+                        </div>
+                    </div>
+
+                    <!-- Hotel Information -->
+                    <div class="hotel-info" style="margin-top: 10px;">
+                        <div>
+                            <strong>Date:</strong>
+                            <t t-esc="time.strftime('%Y-%m-%d')"/>
+                        </div>
+                        <div>
+                            <strong>Customer Name:</strong>
+                            <t t-esc="o.partner_id.name"/>
+                        </div>
+                        <div>
+                            <strong>Folio Number:</strong>
+                            <t t-esc="o.name"/>
+                        </div>
+                        <div>
+                            <strong>Room:</strong>
+                            <t t-esc="', '.join([line.product_id.name for line in o.room_lines])"/>
+                        </div>
+                        <div>
+                            <strong>Room Status:</strong>
+                            <t t-esc="o.state"/>
+                        </div>
+                    </div>
+
+                    <!-- Order Summary Table -->
+                    <table style="width: 100%" class="table table-borderless">
+                        <tr>
+                            <td id="table_value_border" colspan="3">
+                                <h2 style="font-weight:bold;margin:0;padding:0;text-align: center;">Order Summary</h2>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td id="table_value_border">
+                                <strong>Order Type</strong>
+                            </td>
+                            <td id="table_value_border">
+                                <strong>Description</strong>
+                            </td>
+                            <td id="table_value_border">
+                                <strong>Amount</strong>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td id="table_value_border">
+                                <strong>Room Charge</strong>
+                            </td>
+                            <td id="table_value_border">
+                                <t t-esc="', '.join([line.name for line in o.room_lines])"/>
+                            </td>
+                            <td id="table_value_border">
+                                <t t-esc="sum(line.price_subtotal for line in o.room_lines)"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td id="table_value_border">
+                                <strong>Services</strong>
+                            </td>
+                            <td id="table_value_border">
+                                <t t-esc="', '.join([line.name for line in o.service_lines])"/>
+                            </td>
+                            <td id="table_value_border">
+                                <t t-esc="sum(line.price_subtotal for line in o.service_lines)"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td id="table_value_border">
+                                <strong>Room Service Food</strong>
+                            </td>
+                            <td id="table_value_border">
+                                <t t-esc="', '.join([line.name for line in o.room_service_food_lines])"/>
+                            </td>
+                            <td id="table_value_border">
+                                <t t-esc="sum(line.price_subtotal for line in o.room_service_food_lines)"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td id="table_value_border">
+                                <strong>Coffee Shop Food</strong>
+                            </td>
+                            <td id="table_value_border">
+                                <t t-esc="', '.join([line.name for line in o.coffee_shop_food_lines])"/>
+                            </td>
+                            <td id="table_value_border">
+                                <t t-esc="sum(line.price_subtotal for line in o.coffee_shop_food_lines)"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td id="table_value_border">
+                                <strong>Minibar</strong>
+                            </td>
+                            <td id="table_value_border">
+                                <t t-esc="', '.join([line.name for line in o.minibar_lines])"/>
+                            </td>
+                            <td id="table_value_border">
+                                <t t-esc="sum(line.price_subtotal for line in o.minibar_lines)"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td id="table_value_border">
+                                <strong>Banquet</strong>
+                            </td>
+                            <td id="table_value_border">
+                                <t t-esc="', '.join([line.name for line in o.banquet_lines])"/>
+                            </td>
+                            <td id="table_value_border">
+                                <t t-esc="sum(line.price_subtotal for line in o.banquet_lines)"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td id="table_value_border">
+                                <strong>Restaurant</strong>
+                            </td>
+                            <td id="table_value_border">
+                                <t t-esc="', '.join([line.name for line in o.food_lines])"/>
+                            </td>
+                            <td id="table_value_border">
+                                <t t-esc="sum(line.price_subtotal for line in o.food_lines)"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td id="table_value_border">
+                                <strong>Transport</strong>
+                            </td>
+                            <td id="table_value_border">
+                                <t t-esc="', '.join([line.name for line in o.transport_line_ids])"/>
+                            </td>
+                            <td id="table_value_border">
+                                <t t-esc="sum(line.price_subtotal for line in o.transport_line_ids)"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td id="table_value_border">
+                                <strong>Laundry</strong>
+                            </td>
+                            <td id="table_value_border">
+                                <t t-esc="', '.join([line.name for line in o.laundry_line_ids])"/>
+                            </td>
+                            <td id="table_value_border">
+                                <t t-esc="sum(line.price_subtotal for line in o.laundry_line_ids)"/>
+                            </td>
+                        </tr>
+                        <!-- Add rows for different charges (room, services, etc.) here -->
+                        <tr class="table-header">
+                            <td colspan="2" id="table_value_border">
+                                <strong>Total Amount</strong>
+                            </td>
+                            <td id="table_value_border">
+                                <t t-esc="sum(line.price_subtotal for line in o.room_lines) +
+                                      sum(line.price_subtotal for line in o.service_lines) +
+                                      sum(line.price_subtotal for line in o.room_service_food_lines) +
+                                      sum(line.price_subtotal for line in o.coffee_shop_food_lines) +
+                                      sum(line.price_subtotal for line in o.minibar_lines) +
+                                      sum(line.price_subtotal for line in o.banquet_lines) +
+                                      sum(line.price_subtotal for line in o.food_lines) +
+                                      sum(line.price_subtotal for line in o.transport_line_ids) +
+                                      sum(line.price_subtotal for line in o.laundry_line_ids)"/>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <div class="footer-company-info">
+                        <div>
+                            <strong>
+                                <t t-esc="o.company_id.name"/>
+                            </strong>
+                        </div>
+                        <div>
+                            <t t-esc="o.company_id.street"/>
+                            <t t-esc="o.company_id.city"/>,
+                            <t t-esc="o.company_id.country_id.name"/>
+                        </div>
+                        <div>Phone:
+                            <t t-esc="o.company_id.phone"/>
+                        </div>
+                        <div>Email:
+                            <t t-esc="o.company_id.email"/>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

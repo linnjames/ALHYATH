@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_hotel_room_inherited_kanban" model="ir.ui.view">
+            <field name="name">hotel.room.inherited.kanban</field>
+            <field name="model">hotel.room</field>
+            <field name="inherit_id" ref="hotel.view_room_kanban"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@class='oe_kanban_details']" position="inside">
+<!--                    <div>-->
+<!--                        <strong>Status:</strong> <field name="status" widget="badge" decoration-success="status == 'available'"-->
+<!--                       decoration-info="status == 'booking'" decoration-warning="status == 'occupied'" decoration-danger="status in ('clean','maintenance')"/>-->
+<!--                    </div>-->
+                    <div>
+                        <strong>Status:</strong> <field name="status" widget="badge" decoration-success="status == 'vacant'"
+                       decoration-info="status == 'booking'" decoration-warning="status in ('clean','maintenance')" decoration-danger="status == 'occupied'"/>
+                    </div>
+                </xpath>
+                <xpath expr="//div[@class='oe_kanban_details']" position="attributes">
+                    <attribute name="style">width: 400px; height: 90px;</attribute>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="view_hotel_room_inherited_form" model="ir.ui.view">
+            <field name="name">hotel.room.inherited.form</field>
+            <field name="model">hotel.room</field>
+            <field name="inherit_id" ref="hotel.view_hotel_room_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='max_child']" position="after">
+                    <field name="product_id"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
+

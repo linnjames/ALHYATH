@@ -1,0 +1,426 @@
+<odoo>
+    <template id="invoice_pdf_template">
+        <t t-if="not o" t-set="o" t-value="doc"/>
+        <t t-if="not company">
+            <!-- Multicompany -->
+            <t t-if="company_id">
+                <t t-set="company" t-value="company_id"/>
+            </t>
+            <t t-elif="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id.sudo()"/>
+            </t>
+            <t t-else="else">
+                <t t-set="company" t-value="res_company"/>
+            </t>
+        </t>
+        <main>
+<!--            <table style="width: 100%;">-->
+<!--                <tr>-->
+<!--                    <td style="font-weight: bold; text-align: center; font-size: 35px; white-space: nowrap; max-width: 200px; overflow: hidden; text-overflow: ellipsis;">-->
+<!--                        <t t-esc="company.name"/>-->
+<!--                    </td>-->
+<!--&lt;!&ndash;                    <td style="padding:0px;width: 5%; text-align: center;">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <t t-if="company.logo">&ndash;&gt;-->
+<!--&lt;!&ndash;                            <img t-att-src="image_data_uri(company.logo)"&ndash;&gt;-->
+<!--&lt;!&ndash;                                 style="max-height: 200px; padding:0px; margin: 0;" alt="Company Logo"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                        </t>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </td>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <td style="font-weight: bold; padding-right: 210px; text-align: right; font-size: 25px;">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <p>شركتي</p>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </td>&ndash;&gt;-->
+<!--                </tr>-->
+<!--            </table>-->
+
+<!--            <div style="text-align: center;">-->
+<!--&lt;!&ndash;                <p style="font-weight: bold;font-size: 20px;padding-top:30px;margin-top:-20px;">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <t t-esc="company.name"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                </p>&ndash;&gt;-->
+<!--            </div>-->
+<!--            <div style="text-align: center;">-->
+<!--                <p style="font-weight: bold;font-size: 15px;padding-top:15px;margin-top:-15px;">-->
+<!--                    <t t-esc="company.city"/>-->
+<!--                </p>-->
+<!--            </div>-->
+            <div style="text-align: center; margin-bottom: 20px;">
+                <div id="company_logo" style="margin-top: 20px;">
+                    <img t-att-src="'data:image/png;base64,' + (company.logo or b'').decode('utf-8')"
+                         style="max-height: 100px;" alt="Company Logo"/>
+                </div>
+                <div id="company_name">
+                    <t t-esc="company.name"/>
+                </div>
+            </div>
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <div style="border: 2px solid black; padding: 0px 0px 0px 0px;">
+                        <div style="text-align: center; padding: 10px 0; margin: 0;">
+                            <h2 style="font-weight:bold;margin:0;padding:0;">TAX INVOICE</h2>
+                        </div>
+
+                        <!-- Main Table with Vertical Line -->
+
+                        <table style="width: 100%; border-collapse: collapse; margin: 0;border-top:2px solid black;">
+                            <tr style="padding-top:0px;margin-top:0px;">
+                                <td style="padding-right:150px;padding-left:10px;padding-top:10px; vertical-align: top;">
+                                    <div style="margin-bottom: 5px;">
+                                        <strong style="display: inline-block; width: 40%; vertical-align: top;">Guest /
+                                            Crew
+                                        </strong>
+                                        <span style="display: inline-block; width: 59%; vertical-align: top;">
+                                            <strong>:</strong>
+                                            <span t-field="o.partner_id"/>
+                                        </span>
+                                    </div>
+                                    <div style="margin-bottom: 5px;padding-top:30px;">
+                                        <strong style="display: inline-block; width: 40%; vertical-align: top;">Company
+                                        </strong>
+                                        <span style="display: inline-block; width: 59%; vertical-align: top;">
+                                            <strong>:</strong>
+                                            <span t-field="o.partner_id"/>
+                                        </span>
+                                    </div>
+                                    <div style="margin-bottom: 5px;">
+                                        <strong style="display: inline-block; width: 40%; vertical-align: top;">TRN
+                                        </strong>
+                                        <span style="display: inline-block; width: 59%; vertical-align: top;">
+                                            <strong>:</strong>
+                                            <span t-field="o.name"/>
+                                        </span>
+                                    </div>
+                                    <div style="margin-bottom: 5px;">
+                                        <strong style="display: inline-block; width: 40%; vertical-align: top;">Address
+                                        </strong>
+                                        <span style="display: inline-block; width: 59%; vertical-align: top;">
+                                            <strong>:</strong>
+                                            <span t-field="o.partner_id.street"/>
+                                            <br/>
+                                            <span style="padding-left:7px;" t-field="o.partner_id.street2"/>
+                                            <br/>
+                                            <span style="padding-left:7px;" t-field="o.partner_id.state_id.name"/>
+                                            <br/>
+                                            <span style="padding-left:7 px;" t-field="o.partner_id.country_id.name"/>
+                                            <span/>
+                                        </span>
+                                    </div>
+                                    <div style="margin-bottom: 5px;padding-top:50px;">
+                                        <strong style="display: inline-block; width: 40%; vertical-align: top;">
+                                            Nationality
+                                        </strong>
+                                        <span style="display: inline-block; width: 59%; vertical-align: top;">
+                                            <strong>:</strong>
+                                            <span style="padding-left:2px;" t-field="o.partner_id.country_id.name"/>
+                                        </span>
+                                    </div>
+                                    <div style="margin-bottom: 5px;">
+                                        <strong style="display: inline-block; width: 40%; vertical-align: top;">Bill
+                                            Instruction
+                                        </strong>
+                                        <span style="display: inline-block; width: 59%; vertical-align: top;">
+                                            <strong>:</strong>
+                                            Direct by Guest
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <strong style="display: inline-block; width: 40%; vertical-align: top;">Ref
+                                        </strong>
+                                        <span style="display: inline-block; width: 59%; vertical-align: top;">
+                                            <strong>:</strong>
+                                        </span>
+                                    </div>
+                                </td>
+
+                                <!-- Vertical Divider Line -->
+                                <td style="border-left: 2px solid black;"></td>
+                                <!-- Right Column (Invoice Information) -->
+
+                                <td style="padding:10px; vertical-align: top;padding-right:0px;">
+                                    <div style="margin-bottom: 5px;">
+                                        <strong style="display: inline-block; width: 40%; vertical-align: top;">Invoice
+                                            No
+                                        </strong>
+                                        <span style="display: inline-block; width: 59%; vertical-align: top;">
+                                            <strong>:</strong>
+                                            <span t-field="o.name"/>
+                                        </span>
+                                    </div>
+                                    <div style="margin-bottom: 5px;">
+                                        <strong style="display: inline-block; width: 40%; vertical-align: top;">Invoice
+                                            Date
+                                        </strong>
+                                        <span style="display: inline-block; width: 59%; vertical-align: top;">
+                                            <strong>:</strong>
+                                            <span t-field="o.invoice_date"/>
+                                        </span>
+                                    </div>
+                                    <div style="margin-bottom: 5px;">
+                                        <strong style="display: inline-block; width: 40%; vertical-align: top;">Arrival
+                                            Date
+                                        </strong>
+                                        <span style="display: inline-block; width: 59%; vertical-align: top;">
+                                            <strong>:</strong>
+                                            <span t-esc="o.get_folio_data().get('checkin_date')"/>
+                                        </span>
+                                    </div>
+                                    <div style="margin-bottom: 5px;">
+                                        <strong style="display: inline-block; width: 40%; vertical-align: top;">
+                                            Departure Date
+                                        </strong>
+                                        <span style="display: inline-block; width: 59%; vertical-align: top;">
+                                            <strong>:</strong>
+                                            <span t-esc="o.get_folio_data().get('checkout_date')"/>
+                                        </span>
+                                    </div>
+                                    <div style="margin-bottom: 5px;">
+                                        <strong style="display: inline-block; width: 40%; vertical-align: top;">Pax
+                                        </strong>
+                                        <span style="display: inline-block; width: 59%; vertical-align: top;">
+                                            <strong>:</strong>
+<!--                                            <span>-->
+<!--                                                <span t-esc="o.get_folio_data().get('adults') + o.get_folio_data().get('childs')"/>-->
+<!--                                            </span>-->
+                                            <span>
+                                                <span t-esc="(o.get_folio_data().get('adults') or 0) + (o.get_folio_data().get('childs') or 0)"/>
+                                            </span>
+                                            <span style="padding-left:6px;">A:
+                                                <span t-esc="o.get_folio_data().get('adults')"/>
+                                            </span>
+                                            <span style="padding-left:6px;">C:
+                                                <span t-esc="o.get_folio_data().get('childs')"/>
+                                            </span>
+                                        </span>
+                                    </div>
+                                    <div style="margin-bottom: 5px;">
+                                        <strong style="display: inline-block; width: 40%; vertical-align: top;">Room No
+                                        </strong>
+                                        <span style="display: inline-block; width: 59%; vertical-align: top;">
+                                            <strong>:</strong>
+                                            <span t-esc="o.get_folio_data().get('room_number')"/>
+                                        </span>
+                                    </div>
+                                    <div style="margin-bottom: 5px;">
+                                        <strong style="display: inline-block; width: 40%; vertical-align: top;">Reg No
+                                        </strong>
+                                        <span style="display: inline-block; width: 59%; vertical-align: top;">
+                                            <strong>:</strong>
+                                        </span>
+                                    </div>
+                                    <div style="margin-bottom: 5px;">
+                                        <strong style="display: inline-block; width: 40%; vertical-align: top;">Room
+                                            Type
+                                        </strong>
+                                        <span style="display: inline-block; width: 59%; vertical-align: top;">
+                                            <strong>:</strong>
+                                            <span t-esc="o.get_folio_data().get('room_type')"/>
+                                        </span>
+                                    </div>
+                                    <div style="margin-bottom: 5px;">
+                                        <strong style="display: inline-block; width: 40%; vertical-align: top;">Reserve
+                                            No
+                                        </strong>
+                                        <span style="display: inline-block; width: 59%; vertical-align: top;">
+                                            <strong>:</strong>
+                                            <span t-esc="o.get_folio_data().get('reservation_no')"/>
+                                        </span>
+                                    </div>
+                                    <div style="margin-bottom: 5px;">
+                                        <strong style="display: inline-block; width: 40%; vertical-align: top;">No of
+                                            Nights
+                                        </strong>
+                                        <span style="display: inline-block; width: 59%; vertical-align: top;">
+                                            <strong>:</strong>
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <strong style="display: inline-block; width: 40%; vertical-align: top;">TRN
+                                        </strong>
+                                        <span style="display: inline-block; width: 59%; vertical-align: top;">
+                                            <strong>:</strong>
+                                            <span t-field="o.name"/>
+                                        </span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div style="border-left: 2px solid black; border-right: 2px solid black; border-bottom: 2px solid black; text-align: center; padding: 10px 0;margin:0;">
+                        <table style="width: 100%; text-align: left; border-collapse: collapse;">
+                            <tr style="border-bottom: 2px solid black;">
+                                <th style="width: 13%; padding-left:10px;padding-bottom:10px;">Date</th>
+                                <th style="width: 18%;padding-bottom:10px;">Ref No</th>
+                                <th style="width: 19%;padding-bottom:10px;">Description</th>
+                                <th style="width: 12%;padding-bottom:10px;"></th>
+                                <th style="width: 10.64%;padding-bottom:10px;">Debit</th>
+                                <th style="width: 10.64%;padding-bottom:10px;">Credit</th>
+                                <th style="width: 10.64%;padding-right:10px;padding-bottom:10px;">Balance</th>
+                            </tr>
+                            <tr>
+                                <td style="padding-left:10px;padding-top:10px;">
+                                    <span t-esc="o.get_folio_data().get('checkin_date')"/>
+                                </td>
+                                <td style=""></td>
+                                <td style="padding-top:10px;">Tariff</td>
+                                <td style=""></td>
+                                <td style="">
+                                    <span style="margin-left:5px;">
+                                        <t t-esc="(o.get_folio_data().get('vat_muncipal_included_tariff') or 0.0) + sum(line.l10n_ae_vat_amount for line in o.invoice_line_ids)"/>
+                                    </span>
+                                </td>
+                                <td style=""></td>
+                                <td style=""></td>
+                            </tr>
+                            <tr>
+                                <td style="padding-left:10px;">
+                                    <span t-esc="o.get_folio_data().get('advance_payment_date')"/>
+                                </td>
+                                <td style="">
+                                    <span t-esc="o.get_folio_data().get('advance_ref_no')"/>
+                                </td>
+                                <td style="">Receipt-Advance Cash</td>
+                                <td style=""></td>
+                                <td style=""></td>
+                                <td style="">
+                                    <span style="margin-left:5px;" t-esc="o.get_folio_data().get('total_advance')"/>
+                                </td>
+                                <td style=""></td>
+                            </tr>
+                            <tr>
+                                <td style=""></td>
+                                <td style=""></td>
+                                <td style="">Round Off Amount</td>
+                                <td style=""></td>
+                                <td style=""></td>
+                                <td>
+                                    <span style="margin-left:5px;">0.0</span>
+                                </td>
+                                <td style=""></td>
+                            </tr>
+                            <tr>
+                                <td style="padding-top:10px;"></td>
+                                <td style="padding-top:10px;"></td>
+                                <td style="padding-top:10px;"></td>
+                                <td style="padding-top:10px;">Grand Total</td>
+                                <td style="padding-top:10px; position: relative;">
+                                    <span style="position: absolute; width: 60%; top: 0; border-top: 2px dotted; bottom: 0; border-bottom: 2px dotted;"></span>
+                                    <span style="margin-left:5px;"
+                                          t-esc="o.get_folio_data().get('vat_muncipal_included_tariff', 0) + sum(line.l10n_ae_vat_amount for line in o.invoice_line_ids)"/>
+                                </td>
+                                <td style="padding-top:10px; position: relative;">
+                                    <span style="position: absolute;  width: 60%; top: 0; border-top: 2px dotted;bottom: 0; border-bottom: 2px dotted;"/>
+                                    <span style="margin-left:5px;" t-esc="o.get_folio_data().get('total_advance')"/>
+                                </td>
+                                <td style="padding-top:10px; position: relative;">
+                                    <span style="position: absolute;  width: 60%; top: 0; border-top: 2px dotted;bottom: 0; border-bottom: 2px dotted;"/>
+                                    <span style="margin-left:5px;" t-esc="(o.get_folio_data().get('vat_muncipal_included_tariff') or 0) + sum(o.invoice_line_ids.mapped('l10n_ae_vat_amount')) + (0 if o.invoice_line_ids.mapped('l10n_ae_vat_amount') else 0) - (o.get_folio_data().get('total_advance') or 0)"/>
+<!--                                    <span style="margin-left:5px;"-->
+<!--                                          t-esc="o.get_folio_data().get('vat_muncipal_included_tariff')+o.invoice_line_ids.l10n_ae_vat_amount - o.get_folio_data().get('total_advance')"/>-->
+                                </td>
+                            </tr>
+                        </table>
+                        <h3 style="margin-top: 40px; text-align: center;">*** Bill Summary ***</h3>
+                        <table style="width: 100%; text-align: left; border-collapse: collapse;">
+                            <tr style="">
+                                <th style="width: 13%; padding-left:10px;"></th>
+                                <th style="width: 18%;"></th>
+                                <th style="width: 19%;font-weight: normal;">Tariff</th>
+                                <th style="width: 12%;"></th>
+                                <th style="width: 10.64%;">
+                                    <span style="margin-left:5px;font-weight: normal;"
+                                          t-esc="o.get_folio_data().get('product_price_tariff')"/>
+                                </th>
+                                <th style="width: 10.64%;"></th>
+                                <th style="width: 10.64%;padding-right:10px;"></th>
+                            </tr>
+                            <tr>
+                                <td style=""></td>
+                                <td style=""></td>
+                                <td style="">Muncipality Fee</td>
+                                <td style=""></td>
+                                <td style="">
+                                    <span style="margin-left:5px;" t-esc="o.get_folio_data().get('muncipality_fee')"/>
+                                </td>
+                                <td style=""></td>
+                                <td style=""></td>
+                            </tr>
+                            <tr>
+                                <td style=""></td>
+                                <td style=""></td>
+                                <td style="">Vat</td>
+                                <td style=""></td>
+                                <td style="">
+                                    <span style="margin-left:5px;" t-esc="sum(o.invoice_line_ids.mapped('l10n_ae_vat_amount')) or 0"/>
+                                </td>
+                                <td style=""></td>
+                                <td style=""></td>
+                            </tr>
+                            <tr>
+                                <tr>
+                                    <td style=""></td>
+                                    <td style=""></td>
+                                    <td style="">Advance Cash</td>
+                                    <td style=""></td>
+                                    <td style="">
+                                        -<span style="margin-left:0px;padding-left:0px;" t-esc="o.get_folio_data().get('total_advance')"/>
+                                    </td>
+                                    <td style=""></td>
+                                    <td style=""></td>
+                                </tr>
+                            </tr>
+                            <tr>
+                                <td style="padding-top:10px;"></td>
+                                <td style="padding-top:10px;"></td>
+                                <td style="padding-top:10px;">Total</td>
+                                <td style="padding-top:10px;"></td>
+                                <td style="padding-top:10px; position: relative;">
+                                    <span style="position: absolute;  width: 60%; top: 0; border-top: 2px dotted;"/>
+                                    <span style="margin-left:0px;" t-esc="(o.get_folio_data().get('amount_total') or 0) + sum(o.invoice_line_ids.mapped('l10n_ae_vat_amount')) or 0"/>
+<!--                                    <span style="margin-left:0px;"-->
+<!--                                          t-esc="o.get_folio_data().get('amount_total') + o.invoice_line_ids.l10n_ae_vat_amount"/>-->
+                                </td>
+                                <td style="padding-top:10px;"></td>
+                                <td style="padding-top:10px;"></td>
+                            </tr>
+                        </table>
+                        <div style="margin-top:60px;">
+                            <table style="border-top:2px solid black;width:100%;">
+                                <tr>
+                                    <td style="font-size:12px;padding-left:10px;font-weight: bold;padding-top:10px;">
+                                        <p style="font-style:italic;padding:0px;margin:0px;">WE HOPE YOU ENJOYED YOUR
+                                            STAY AND WOULD LIKE TO WELCOME YOU BACK
+                                        </p>
+                                        <p style="padding:0px;margin:0px;">ALL PRICES ARE IN AED AND INCLUSIVE OF 10%
+                                            MUNCIPALITY FEE AND 5% VAT
+                                        </p>
+                                        <p style="padding:0px;margin:0px;">(VAT 5% NOT APPLICABLE ON 10% MUNCIPALITY
+                                            FEE)
+                                        </p>
+                                    </td>
+                                    <td style="font-size:12px;font-weight: bold;padding-top:0px;">
+                                        <p style="padding-left:60px;margin:0px;">Please Deposit Your ROOM KEY</p>
+                                    </td>
+                                </tr>
+
+                            </table>
+                            <table style="width:100%;margin-top:15px;">
+                                <tr>
+                                    <td style="font-size:12px;padding-left:10px;padding-top:10px;font-weight: bold;width:45%;">
+                                        Cashier Signature
+                                    </td>
+                                    <td style="font-size:12px;font-weight: bold;width:40%;">
+                                        Reprint Bill (1)
+                                    </td>
+                                    <td style="font-size:12px;font-weight: bold;width:20%;">
+                                        Guest Signature
+                                    </td>
+                                </tr>
+
+                            </table>
+
+                        </div>
+                    </div>
+                </t>
+            </t>
+
+        </main>
+
+    </template>
+</odoo>
